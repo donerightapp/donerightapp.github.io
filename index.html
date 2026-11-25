@@ -11,7 +11,10 @@
 <link rel="manifest" href="manifest.webmanifest">
 <script>
   var APP = "https://script.google.com/a/macros/georgiainsulation.com/s/AKfycby52tiI4Q4fM6bqsqtZ1JeJh9RLqwiPFdmct0duYBMmK0FvapwofzRSK1zKcBvDngH5/exec";
-  if (/[?&]go=1/.test(location.search)) location.replace(APP);
+  // Go through Google's account chooser for georgiainsulation.com, so a phone whose
+  // default Google account is personal still opens the app (passes straight through when already on GAI).
+  var GO = "https://accounts.google.com/AccountChooser?continue=" + encodeURIComponent(APP) + "&hd=georgiainsulation.com";
+  if (/[?&]go=1/.test(location.search)) location.replace(GO);
 </script>
 <style>
   html, body { margin: 0; background: #222; color: #eee; font: 17px/1.45 -apple-system, system-ui, sans-serif; }
@@ -41,7 +44,7 @@
 <script>
   if (!/[?&]go=1/.test(location.search)) {
     document.getElementById("setup").hidden = false;
-    document.getElementById("open").href = APP;
+    document.getElementById("open").href = GO;
     history.replaceState(null, "", location.pathname + "?go=1");
   }
 </script>
